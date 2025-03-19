@@ -18,6 +18,9 @@ app.get("/api/vi/websites/status", authMiddleware ,  (req,res) => {
 app.get("/api/vi/websites/status", authMiddleware ,  (req,res) => {
 
 })
+app.get("/api/vi/websites/status", authMiddleware ,  (req,res) => {
+
+})
 app.get("/api/vi/websites", authMiddleware, (req,res) =>{
 
 })
