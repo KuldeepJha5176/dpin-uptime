@@ -3,7 +3,7 @@ import type { NextFunction , Request, Response } from "express";
 export function authMiddleware(req: Request , res: Response, next: NextFunction){
     const authHeader =  req.headers['authorization'];
 
-    req.userId = "1";
+    req.userId = "5";
     next()
 }
 // import {clerkMiddleware } from "@clerk/nextjs/server";

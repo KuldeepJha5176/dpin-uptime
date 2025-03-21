@@ -4,9 +4,10 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { SignInButton } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 
 const Stats = () => {
+  const Router = useRouter();
   const performanceData = [
     { name: 'Mon', value: 99.97 },
     { name: 'Tue', value: 100 },
@@ -46,12 +47,12 @@ const Stats = () => {
                   </div>
                 ))}
               </div>
-              <SignInButton mode="modal">
-              <Button className="group">
+              
+              <Button onClick={() => Router.push("/dashboard")} variant="default" size="lg">
                 View full dashboard
                 <ArrowRight className="ml-2 group-hover:animate-move-right" />
               </Button>
-              </SignInButton>
+             
             </div>
             
             <div className="h-80 w-full">

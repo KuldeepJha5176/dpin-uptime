@@ -20,7 +20,7 @@ export default function Appbar() {
         Dpin Uptime
       </div>
       <div className="flex items-center gap-4">
-        < ThemeToggle />
+     
         <SignedOut>
           <SignInButton mode="modal">
             < Button variant="default" size="default">
@@ -34,7 +34,7 @@ export default function Appbar() {
           </SignUpButton>
         </SignedOut>
         <SignedIn>
-          <UserButton afterSignOutUrl="/dashboard" />
+          <UserButton afterSignInUrl="/dashboard" />
         </SignedIn>
       </div>
     </div>

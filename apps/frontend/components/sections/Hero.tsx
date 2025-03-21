@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { SignInButton } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
+
+
 
 const Hero = () => {
+  const Router = useRouter();
   return (
     <section className="pt-32 pb-24 relative overflow-hidden">
       <div className="container mx-auto px-4 text-center relative z-10">
@@ -22,15 +25,13 @@ const Hero = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <SignInButton mode="modal">
-            <Button size="lg" className="group">
+          
+            <Button  onClick={() => Router.push("/dashboard")} variant="default" size="lg">
               Start monitoring for free
               <ArrowRight className="ml-2 group-hover:animate-move-right" />
             </Button>
-            </SignInButton>
-            <Button variant="outline" size="lg">
-              View demo
-              </Button>
+           
+           
           </div>
           
           <div className="pt-8">
