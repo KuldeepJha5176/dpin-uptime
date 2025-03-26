@@ -1,6 +1,6 @@
 import express from "express";
 import { authMiddleware } from "./middleware";
-import { prismaClient } from "../../packages/db/src/index";
+import {  prismaClient } from "../../packages/db/src/index";
 import cors from "cors";
 const app  = express();
 
@@ -41,7 +41,7 @@ app.get("/api/v1/websites/status", authMiddleware , async (req,res) => {
     res.json(data)
 
 })
-app.get("/api/v1/websites", authMiddleware, async (req,res) =>{
+app.get("/api/v1/websites", authMiddleware , async (req,res) =>{
     const userId = req.userId!;
 
     const websites = await prismaClient.website.findMany({
@@ -60,7 +60,7 @@ app.get("/api/v1/websites", authMiddleware, async (req,res) =>{
 
    
 })
-app.delete("/api/v1/website/",authMiddleware, async(req,res) =>{
+app.delete("/api/v1/website/", authMiddleware, async(req,res) =>{
     const userId = req.userId!;
     const websiteId = req.body.website;
 

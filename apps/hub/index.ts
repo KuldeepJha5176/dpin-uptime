@@ -1,6 +1,6 @@
 import { randomUUIDv7, type ServerWebSocket } from "bun";
-import type { IncomingMessage, SignupIncomingMessage } from "common/types";
-import { prismaClient } from "";
+import type { IncomingMessage, SignupIncomingMessage } from "../../packages/common/index.ts";
+import { prismaClient } from "../../packages/db/src/index";
 import { PublicKey } from "@solana/web3.js";
 import nacl from "tweetnacl";
 import nacl_util from "tweetnacl-util";

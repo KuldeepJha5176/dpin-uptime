@@ -92,7 +92,8 @@ export function useWebsites() {
           Authorization: token,
         },
       });
-      
+      console.log("API URL:", API_BACKEND_URL);
+
       // Validate response structure
       if (!response.data || !Array.isArray(response.data.websites)) {
         throw new Error("Invalid response format from API");
@@ -104,7 +105,7 @@ export function useWebsites() {
       setError(err instanceof Error ? err.message : "Failed to fetch websites");
       // Keep previous data in case of error
     } finally {
-      setLoading(false);a   AQ      q 
+      setLoading(false);
     }
   }, [getToken]);
 
