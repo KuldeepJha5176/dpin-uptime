@@ -27,6 +27,7 @@ async function main() {
     ws.onopen = async () => {
         const callbackId = randomUUIDv7();
         CALLBACKS[callbackId] = (data: SignupOutgoingMessage) => {
+             console.log('Callback triggered:', data);
             validatorId = data.validatorId;
         }
         const signedMessage = await signMessage(`Signed message for ${callbackId}, ${keypair.publicKey}`, keypair);

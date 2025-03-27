@@ -6,8 +6,7 @@ import nacl from "tweetnacl";
 import nacl_util from "tweetnacl-util";
 
 const availableValidators: { validatorId: string, socket: ServerWebSocket<unknown>, publicKey: string }[] = [];
-
-const CALLBACKS : { [callbackId: string]: (data: IncomingMessage) => void } = {}
+const CALLBACKS: { [callbackId: string]: (data: IncomingMessage) => void } = {}
 const COST_PER_VALIDATION = 100; // in lamports
 
 Bun.serve({
@@ -23,7 +22,6 @@ Bun.serve({
             const data: IncomingMessage = JSON.parse(message);
             
             if (data.type === 'signup') {
-
                 const verified = await verifyMessage(
                     `Signed message for ${data.data.callbackId}, ${data.data.publicKey}`,
                     data.data.publicKey,
@@ -33,12 +31,18 @@ Bun.serve({
                     await signupHandler(ws, data.data);
                 }
             } else if (data.type === 'validate') {
-                CALLBACKS[data.data.callbackId](data);
-                delete CALLBACKS[data.data.callbackId];
+                console.log('Callback triggered:', data);
+                if (CALLBACKS[data.data.callbackId]) {
+                    CALLBACKS[data.data.callbackId](data);
+                    delete CALLBACKS[data.data.callbackId];
+                }
             }
         },
         async close(ws: ServerWebSocket<unknown>) {
-            availableValidators.splice(availableValidators.findIndex(v => v.socket === ws), 1);
+            const index = availableValidators.findIndex(v => v.socket === ws);
+            if (index !== -1) {
+                availableValidators.splice(index, 1);
+            }
         }
     },
 });
@@ -58,7 +62,6 @@ async function signupHandler(ws: ServerWebSocket<unknown>, { ip, publicKey, sign
                 callbackId,
             },
         }));
-
         availableValidators.push({
             validatorId: validatorDb.id,
             socket: ws,
@@ -83,7 +86,6 @@ async function signupHandler(ws: ServerWebSocket<unknown>, { ip, publicKey, sign
             callbackId,
         },
     }));
-
     availableValidators.push({
         validatorId: validator.id,
         socket: ws,
@@ -98,7 +100,6 @@ async function verifyMessage(message: string, publicKey: string, signature: stri
         new Uint8Array(JSON.parse(signature)),
         new PublicKey(publicKey).toBytes(),
     );
-
     return result;
 }
 
@@ -129,6 +130,7 @@ setInterval(async () => {
                         validator.publicKey,
                         signedMessage
                     );
+
                     if (!verified) {
                         return;
                     }
